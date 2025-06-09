@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import model.Nivel;
 
 public class NivelDAO {
@@ -36,6 +38,28 @@ public class NivelDAO {
         } catch (Exception e) {
             System.err.println("ERRO: " + e.getMessage());
             return -1;
+        }
+    }
+    
+    public List<Nivel> listar() {
+        try {
+            String sql = "select * from tb_nivel order by nome";
+            cmd = con.prepareStatement(sql);
+            ResultSet rs = cmd.executeQuery();
+            List<Nivel> lista = new ArrayList<>();
+            while (rs.next()) {
+                Nivel n = new Nivel(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("descricao"),
+                        rs.getString("requisitos")
+                );
+                lista.add(n);
+            }
+            return lista;
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
         }
     }
     
