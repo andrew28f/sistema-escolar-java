@@ -195,7 +195,7 @@ public class AlunoForm extends javax.swing.JPanel {
             AlterarAluno alterar = new AlterarAluno(a);
             alterar.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Selecione um aluno na tabela para alterar.");
+            JOptionPane.showMessageDialog(null, "Nenhum aluno selecionado na tabela para alterar.");
         }
         
     }//GEN-LAST:event_btnAlterarActionPerformed
