@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import model.Curso;
 
 public class CursoDAO {
@@ -36,6 +38,28 @@ public class CursoDAO {
         } catch (Exception e) {
             System.err.println("ERRO: " + e.getMessage());
             return -1;
+        }
+    }
+    
+    public List<Curso> listar() {
+        try {
+            String sql = "select * from tb_curso order by nome";
+            cmd = con.prepareStatement(sql);
+            ResultSet rs = cmd.executeQuery();
+            List<Curso> lista = new ArrayList<>();
+            while (rs.next()) {
+                Curso c = new Curso(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("carga_horaria"),
+                        rs.getString("descricao")
+                );
+                lista.add(c);
+            }
+            return lista;
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
         }
     }
     
