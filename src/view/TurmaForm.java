@@ -4,6 +4,7 @@ import controller.TurmaDAO;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import model.Turma;
+import model.TurmaDetalhada;
 
 public class TurmaForm extends javax.swing.JPanel {
 
@@ -34,9 +35,9 @@ public class TurmaForm extends javax.swing.JPanel {
     private void preencherTabela(List<Turma> lista){
         configurarTabela();
         DefaultTableModel m = (DefaultTableModel)tabTurmas.getModel();
-        for(Turma t : lista){
-            
-            m.addRow(new Object[]{t.getId(),t.getNome(),t.getCursoId(),t.getNivelId(),t.getProfessorId(),t.getHorario()});
+        for(Turma turma : lista){
+            TurmaDetalhada t = new TurmaDAO().retornarNomes(turma);
+            m.addRow(new Object[]{t.getId(),t.getNome(),t.getNomeCurso(),t.getNomeNivel(),t.getNomeProfessor(),t.getHorario()});
         }
         tabTurmas.setModel(m);
     }

@@ -7,6 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import model.Turma;
+import model.TurmaDetalhada;
 
 public class TurmaDAO {
     
@@ -67,7 +68,32 @@ public class TurmaDAO {
         }
     }
     
-    public List<Turma> listarPorNomes() {
+    public Turma retornarIds(TurmaDetalhada turma) {
+        try {
+            String sql = "select * from tb_turma t where t.id = ?";
+            cmd = con.prepareStatement(sql);
+            cmd.setInt(1, turma.getId());
+            
+            ResultSet rs = cmd.executeQuery();
+            if (rs.next()) {
+                Turma t = new Turma(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("curso_id"),
+                        rs.getInt("nivel_id"),
+                        rs.getInt("professor_id"),
+                        rs.getString("horario")
+                );
+                return t;
+            }
+            return null;
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public TurmaDetalhada retornarNomes(Turma turma) {
         try {
             String sql = "select t.id as id_turma,"
                     + "t.nome as nome_turma,"
@@ -75,27 +101,26 @@ public class TurmaDAO {
                     + "n.nome as nome_nivel,"
                     + "p.nome as nome_professor,"
                     + "t.horario as horario_turma"
-                    + "from tb_turma t"
+                    + "from tb_turma t where t.id = ?"
                     + "join tb_curso c on t.curso_id = c.id"
                     + "join tb_nivel n on t.nivel_id = n.id"
                     + "join tb_professor p on t.professor_id = p.id";
             cmd = con.prepareStatement(sql);
+            cmd.setInt(1, turma.getId());
             
             ResultSet rs = cmd.executeQuery();
-            List lista = new ArrayList<>();
-            while (rs.next()) {
-                lista.add(
-                    new Object[] {
-                        rs.getInt("id_turma"),
+            if (rs.next()) {
+                TurmaDetalhada t = new TurmaDetalhada(
+                        rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getInt("nome_curso"),
-                        rs.getInt("nome_nivel"),
-                        rs.getInt("nome_professor"),
-                        rs.getString("horario_turma")
-                    }
+                        rs.getString("nome_curso"),
+                        rs.getString("nome_nivel"),
+                        rs.getString("nome_professor"),
+                        rs.getString("horario")
                 );
+                return t;
             }
-            return lista;
+            return null;
         } catch (Exception e) {
             System.err.println("ERRO: " + e.getMessage());
             return null;
