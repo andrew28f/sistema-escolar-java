@@ -1,9 +1,41 @@
 package view;
 
+import controller.CursoDAO;
+import controller.NivelDAO;
+import controller.ProfessorDAO;
+import javax.swing.DefaultComboBoxModel;
+
 public class CadastroTurmaForm extends javax.swing.JFrame {
 
     public CadastroTurmaForm() {
         initComponents();
+        this.setTitle("Cadastro de Turmas");
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        preencherCombo();
+        
+        cbxCurso.setSelectedIndex(0);
+        cbxNivel.setSelectedIndex(0);
+        cbxProfessor.setSelectedIndex(0);        
+    }
+    
+    private void preencherCombo() {
+        
+        // Preenche ComboBox de Cursos
+        DefaultComboBoxModel mCurso = new DefaultComboBoxModel();
+        mCurso.addAll(new CursoDAO().listar());
+        cbxCurso.setModel(mCurso);
+        
+        // Preenche ComboBox de Níveis
+        DefaultComboBoxModel mNivel = new DefaultComboBoxModel();
+        mNivel.addAll(new NivelDAO().listar());
+        cbxNivel.setModel(mNivel);
+        
+        // Preenche ComboBox de Professores
+        DefaultComboBoxModel mProfessor = new DefaultComboBoxModel();
+        mProfessor.addAll(new ProfessorDAO().listar());
+        cbxProfessor.setModel(mProfessor);
+        
     }
 
     /**
