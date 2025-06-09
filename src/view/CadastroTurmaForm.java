@@ -3,7 +3,13 @@ package view;
 import controller.CursoDAO;
 import controller.NivelDAO;
 import controller.ProfessorDAO;
+import controller.TurmaDAO;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
+import model.Curso;
+import model.Nivel;
+import model.Professor;
+import model.Turma;
 
 public class CadastroTurmaForm extends javax.swing.JFrame {
 
@@ -59,7 +65,7 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
         lblHorario = new javax.swing.JLabel();
         cbxHorario = new javax.swing.JComboBox<>();
         btnSalvar = new javax.swing.JButton();
-        btnVoltar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,7 +109,7 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
         lblHorario.setText("Horário");
 
         cbxHorario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00 - 08:50", "08:50 - 09:40", "09:40 - 10:30", "10:30 - 11:45" }));
 
         btnSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnSalvar.setText("Salvar");
@@ -113,11 +119,11 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
             }
         });
 
-        btnVoltar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        btnVoltar.setText("Cancelar");
-        btnVoltar.addActionListener(new java.awt.event.ActionListener() {
+        btnCancelar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnVoltarActionPerformed(evt);
+                btnCancelarActionPerformed(evt);
             }
         });
 
@@ -135,7 +141,7 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(btnSalvar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnVoltar))
+                                .addComponent(btnCancelar))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addComponent(lblCurso)
@@ -158,7 +164,7 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnSalvar, btnVoltar});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnCancelar, btnSalvar});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -188,7 +194,7 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
-                    .addComponent(btnVoltar))
+                    .addComponent(btnCancelar))
                 .addGap(18, 18, 18))
         );
 
@@ -198,12 +204,33 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
     private void btnSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSalvarActionPerformed
 
         String nome = txtNome.getText();
+        int cursoId = ((Curso) cbxCurso.getSelectedItem()).getId();
+        int nivelId = ((Nivel) cbxNivel.getSelectedItem()).getId();
+        int professorId = ((Professor) cbxProfessor.getSelectedItem()).getId();
+        String horario = cbxHorario.getSelectedItem().toString();
+        
+        if (nome.isBlank()) {
+            JOptionPane.showMessageDialog(null, "Informe um nome.");
+        } else {
+            Turma t = new Turma();
+            t.setNome(nome);
+            t.setCursoId(cursoId);
+            t.setNivelId(nivelId);
+            t.setProfessorId(professorId);
+            t.setHorario(horario);
+            int res = new TurmaDAO().inserir(t);
+            if (res > 0) {
+                JOptionPane.showMessageDialog(null, "Operação realizada com sucesso!");
+            } else {
+                JOptionPane.showMessageDialog(null, "Não foi possível realizar a operação.");
+            }
+        }
         
     }//GEN-LAST:event_btnSalvarActionPerformed
 
-    private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
         this.dispose();
-    }//GEN-LAST:event_btnVoltarActionPerformed
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
     private void cbxNivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxNivelActionPerformed
         // TODO add your handling code here:
@@ -249,8 +276,8 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnSalvar;
-    private javax.swing.JButton btnVoltar;
     private javax.swing.JComboBox<String> cbxCurso;
     private javax.swing.JComboBox<String> cbxHorario;
     private javax.swing.JComboBox<String> cbxNivel;
