@@ -58,7 +58,6 @@ public class TurmaForm extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabTurmas = new javax.swing.JTable();
         btnAdicionar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
 
         lblTurmas.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
         lblTurmas.setText("Turmas");
@@ -91,9 +90,11 @@ public class TurmaForm extends javax.swing.JPanel {
 
         btnAdicionar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnAdicionar.setText("Adicionar");
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton1.setText("Alterar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -113,16 +114,11 @@ public class TurmaForm extends javax.swing.JPanel {
                             .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 323, Short.MAX_VALUE)))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(357, 357, 357)
                 .addComponent(btnAdicionar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
-                .addGap(283, 283, 283))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdicionar, jButton1});
-
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
@@ -137,9 +133,7 @@ public class TurmaForm extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 287, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnAdicionar)
-                    .addComponent(jButton1))
+                .addComponent(btnAdicionar)
                 .addGap(46, 46, 46))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -169,11 +163,14 @@ public class TurmaForm extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_txtPesquisarKeyReleased
 
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        CadastroTurmaForm c = new CadastroTurmaForm();
+        c.setVisible(true);
+    }//GEN-LAST:event_btnAdicionarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
     private javax.swing.JComboBox<String> cbxPesquisarPor;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPesquisarPor;
     private javax.swing.JLabel lblTurmas;
