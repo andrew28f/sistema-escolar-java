@@ -48,4 +48,29 @@ public class AlunoDAO {
         }
     }
     
+    public int atualizar(Aluno a) {
+        try {
+            
+            String sql = "update tb_aluno set nome = ?, email = ?, telefone = ?, data_nascimento = ? where id = ?";
+            cmd = con.prepareStatement(sql);
+            
+            cmd.setString(1, a.getNome());
+            cmd.setString(2, a.getEmail());
+            cmd.setString(3, a.getTelefone());
+            
+            String data_nascimento = a.getDataNascimento();
+            LocalDate data = LocalDate.parse(data_nascimento);
+            Date sqlData = Date.valueOf(data);
+            cmd.setDate(4, sqlData);
+            
+            cmd.setInt(5, a.getId());
+            
+            return cmd.executeUpdate() > 0 ? a.getId() : -1;
+            
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return -1;
+        }
+    }
+    
 }
