@@ -4,6 +4,8 @@ import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import model.Professor;
 
 public class ProfessorDAO {
@@ -57,6 +59,31 @@ public class ProfessorDAO {
         } catch (Exception e) {
             System.err.println("ERRO: " + e.getMessage());
             return -1;
+        }
+    }
+    
+    public List<Professor> listar() {
+        try {
+            
+            String sql = "select * from tb_professor order by nome";
+            cmd = con.prepareStatement(sql);
+            ResultSet rs = cmd.executeQuery();
+            List<Professor> lista = new ArrayList<>();
+            while (rs.next()) {
+                Professor p = new Professor(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        rs.getString("especialidade")
+                );
+                lista.add(p);
+            }
+            return lista;
+            
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
         }
     }
     
