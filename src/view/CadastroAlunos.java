@@ -166,6 +166,7 @@ public class CadastroAlunos extends javax.swing.JFrame {
             int res = new AlunoDAO().inserir(a);
             if ( res > 0 ){
                 JOptionPane.showMessageDialog(null, "Operação realizada com sucesso!");
+                this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Não foi possível realizar a operação.");
             }

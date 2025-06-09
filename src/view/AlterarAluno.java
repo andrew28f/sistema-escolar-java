@@ -203,9 +203,10 @@ public class AlterarAluno extends javax.swing.JFrame {
             a.setEmail(email);
             a.setTelefone(telefone);
             a.setDataNascimento(data);
-            int res = new AlunoDAO().inserir(a);
+            int res = new AlunoDAO().atualizar(a);
             if ( res > 0 ){
-                JOptionPane.showMessageDialog(null, "Operação realizada com sucesso!");
+                JOptionPane.showMessageDialog(null, "Registro alterado com sucesso!");
+                this.dispose();
             }else{
                 JOptionPane.showMessageDialog(null, "Não foi possível realizar a operação.");
             }
