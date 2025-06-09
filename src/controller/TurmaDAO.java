@@ -67,6 +67,41 @@ public class TurmaDAO {
         }
     }
     
+    public List<Turma> listarPorNomes() {
+        try {
+            String sql = "select t.id as id_turma,"
+                    + "t.nome as nome_turma,"
+                    + "c.nome as nome_curso,"
+                    + "n.nome as nome_nivel,"
+                    + "p.nome as nome_professor,"
+                    + "t.horario as horario_turma"
+                    + "from tb_turma t"
+                    + "join tb_curso c on t.curso_id = c.id"
+                    + "join tb_nivel n on t.nivel_id = n.id"
+                    + "join tb_professor p on t.professor_id = p.id";
+            cmd = con.prepareStatement(sql);
+            
+            ResultSet rs = cmd.executeQuery();
+            List lista = new ArrayList<>();
+            while (rs.next()) {
+                lista.add(
+                    new Object[] {
+                        rs.getInt("id_turma"),
+                        rs.getString("nome"),
+                        rs.getInt("nome_curso"),
+                        rs.getInt("nome_nivel"),
+                        rs.getInt("nome_professor"),
+                        rs.getString("horario_turma")
+                    }
+                );
+            }
+            return lista;
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
     public List<Turma> pesquisarPorId(String id) {
         try {
             int Id = Integer.parseInt(id);
@@ -78,7 +113,6 @@ public class TurmaDAO {
             ResultSet rs = cmd.executeQuery();
             List<Turma> lista = new ArrayList<>();
             while (rs.next()) {
-                
                 Turma t = new Turma(
                         rs.getInt("id"),
                         rs.getString("nome"),
@@ -107,7 +141,6 @@ public class TurmaDAO {
             ResultSet rs = cmd.executeQuery();
             List<Turma> lista = new ArrayList<>();
             while (rs.next()) {
-                
                 Turma t = new Turma(
                         rs.getInt("id"),
                         rs.getString("nome"),
