@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import model.Aluno;
 
 public class AlunoDAO {
@@ -29,8 +31,8 @@ public class AlunoDAO {
             cmd.setString(3, a.getTelefone());
             
             // Formata data de nascimento para inserção no banco de dados
-            String data_nascimento = a.getDataNascimento();
-            LocalDate data = LocalDate.parse(data_nascimento);
+            String dataNascimento = a.getDataNascimento();
+            LocalDate data = LocalDate.parse(dataNascimento);
             Date sqlData = Date.valueOf(data);
             
             cmd.setDate(4, sqlData);
@@ -58,8 +60,8 @@ public class AlunoDAO {
             cmd.setString(2, a.getEmail());
             cmd.setString(3, a.getTelefone());
             
-            String data_nascimento = a.getDataNascimento();
-            LocalDate data = LocalDate.parse(data_nascimento);
+            String dataNascimento = a.getDataNascimento();
+            LocalDate data = LocalDate.parse(dataNascimento);
             Date sqlData = Date.valueOf(data);
             cmd.setDate(4, sqlData);
             
@@ -70,6 +72,40 @@ public class AlunoDAO {
         } catch (Exception e) {
             System.err.println("ERRO: " + e.getMessage());
             return -1;
+        }
+    }
+    
+    public List<Aluno> listar() {
+        try {
+            
+            String sql = "select * from tb_aluno order by nome";
+            cmd = con.prepareStatement(sql);
+            ResultSet rs = cmd.executeQuery();
+            
+            List<Aluno> lista = new ArrayList<>();
+            while (rs.next()) {
+                
+                // Recupera como java.sql.Date e converte para LocalDate
+                LocalDate dataNascimento = rs.getDate("data_nascimento").toLocalDate();
+                
+                // Formata dataNascimento para String
+                String data = dataNascimento.toString();
+                
+                Aluno a = new Aluno(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        data
+                );
+                lista.add(a);
+            }
+            
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
         }
     }
     
