@@ -63,4 +63,77 @@ public class CursoDAO {
         }
     }
     
+    public List<Curso> pesquisarPorId(String id) {
+        try {
+            int Id = Integer.parseInt(id);
+            
+            String sql = "select * from tb_curso where id = ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setInt(1, Id);
+            ResultSet rs = cmd.executeQuery();
+            List<Curso> lista = new ArrayList<>();
+            while (rs.next()) {
+                Curso c = new Curso(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("carga_horaria"),
+                        rs.getString("descricao")
+                );
+                lista.add(c);
+            }
+            return lista;
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Curso> pesquisarPorNome(String nome) {
+        try {
+            String sql = "select * from tb_curso where nome ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + nome + "%");
+            ResultSet rs = cmd.executeQuery();
+            List<Curso> lista = new ArrayList<>();
+            while (rs.next()) {
+                Curso c = new Curso(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("carga_horaria"),
+                        rs.getString("descricao")
+                );
+                lista.add(c);
+            }
+            return lista;
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Curso> pesquisarPorCargaHoraria(String cargaHoraria) {
+        try {
+            int CargaHoraria = Integer.parseInt(cargaHoraria);
+            
+            String sql = "select * from tb_curso where carga_horaria = ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setInt(1, CargaHoraria);
+            ResultSet rs = cmd.executeQuery();
+            List<Curso> lista = new ArrayList<>();
+            while (rs.next()) {
+                Curso c = new Curso(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("carga_horaria"),
+                        rs.getString("descricao")
+                );
+                lista.add(c);
+            }
+            return lista;
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
 }

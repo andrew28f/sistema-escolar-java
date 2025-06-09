@@ -63,4 +63,74 @@ public class NivelDAO {
         }
     }
     
+    public List<Nivel> pesquisarPorId(String id) {
+        try {
+            int Id = Integer.parseInt(id);
+            String sql = "select * from tb_nivel where id = ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setInt(1, Id);
+            ResultSet rs = cmd.executeQuery();
+            List<Nivel> lista = new ArrayList<>();
+            while (rs.next()) {
+                Nivel n = new Nivel(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("descricao"),
+                        rs.getString("requisitos")
+                );
+                lista.add(n);
+            }
+            return lista;
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Nivel> pesquisarPorNome(String nome) {
+        try {
+            String sql = "select * from tb_nivel where nome ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + nome + "%");
+            ResultSet rs = cmd.executeQuery();
+            List<Nivel> lista = new ArrayList<>();
+            while (rs.next()) {
+                Nivel n = new Nivel(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("descricao"),
+                        rs.getString("requisitos")
+                );
+                lista.add(n);
+            }
+            return lista;
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Nivel> pesquisarPorRequisitos(String requisitos) {
+        try {
+            String sql = "select * from tb_nivel where requisitos ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + requisitos + "%");
+            ResultSet rs = cmd.executeQuery();
+            List<Nivel> lista = new ArrayList<>();
+            while (rs.next()) {
+                Nivel n = new Nivel(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("descricao"),
+                        rs.getString("requisitos")
+                );
+                lista.add(n);
+            }
+            return lista;
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
 }

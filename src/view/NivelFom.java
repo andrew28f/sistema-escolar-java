@@ -1,20 +1,45 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view;
 
-/**
- *
- * @author Micro
- */
+import controller.NivelDAO;
+import java.util.List;
+import javax.swing.ButtonGroup;
+import javax.swing.table.DefaultTableModel;
+import model.Nivel;
+
 public class NivelFom extends javax.swing.JPanel {
 
-    /**
-     * Creates new form NivelFom
-     */
     public NivelFom() {
         initComponents();
+        preencherTabela(new NivelDAO().listar());
+        
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(rdbId);
+        bg.add(rdbNome);
+        bg.add(rdbRequisitos);
+        rdbId.setSelected(true);
+    }
+    
+    private void configurarTabela() {
+        DefaultTableModel m = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        m.addColumn("Id");
+        m.addColumn("Nome");
+        m.addColumn("Requisitos");
+        m.addColumn("Descrição");
+        tabNivel.setModel(m);
+    }
+    
+    private void preencherTabela(List<Nivel> lista) {
+        configurarTabela();
+        DefaultTableModel m = (DefaultTableModel) tabNivel.getModel();
+        for (Nivel n : lista) {
+            m.addRow(new Object[]{n.getId(),n.getNome(),n.getRequisitos(),n.getDescricao()});
+        }
+        tabNivel.setModel(m);
     }
 
     /**
@@ -26,19 +51,119 @@ public class NivelFom extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblNivel = new javax.swing.JLabel();
+        lblPesquisarPor = new javax.swing.JLabel();
+        rdbId = new javax.swing.JRadioButton();
+        rdbNome = new javax.swing.JRadioButton();
+        rdbRequisitos = new javax.swing.JRadioButton();
+        txtPesquisar = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabNivel = new javax.swing.JTable();
+
+        lblNivel.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        lblNivel.setText("Nível");
+
+        lblPesquisarPor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblPesquisarPor.setText("Pesquisar por");
+
+        rdbId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        rdbId.setText("Id");
+
+        rdbNome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        rdbNome.setText("Nome");
+
+        rdbRequisitos.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        rdbRequisitos.setText("Resquisitos");
+
+        txtPesquisar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisarKeyReleased(evt);
+            }
+        });
+
+        tabNivel.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabNivel);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 858, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblNivel)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblPesquisarPor)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdbId)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdbNome)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdbRequisitos))
+                            .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 523, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 323, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblNivel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPesquisarPor)
+                    .addComponent(rdbNome)
+                    .addComponent(rdbRequisitos)
+                    .addComponent(rdbId))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(73, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyReleased
+        
+        String chave = txtPesquisar.getText();
+        
+        if (chave.isEmpty()) {
+            preencherTabela(new NivelDAO().listar());
+        } else {
+            if (rdbId.isSelected()) {
+                preencherTabela(new NivelDAO().pesquisarPorId(chave));
+            } else if (rdbNome.isSelected()) {
+                preencherTabela(new NivelDAO().pesquisarPorNome(chave));
+            } else if (rdbRequisitos.isSelected()) {
+                preencherTabela(new NivelDAO().pesquisarPorRequisitos(chave));
+            }
+        }
+        
+    }//GEN-LAST:event_txtPesquisarKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblNivel;
+    private javax.swing.JLabel lblPesquisarPor;
+    private javax.swing.JRadioButton rdbId;
+    private javax.swing.JRadioButton rdbNome;
+    private javax.swing.JRadioButton rdbRequisitos;
+    private javax.swing.JTable tabNivel;
+    private javax.swing.JTextField txtPesquisar;
     // End of variables declaration//GEN-END:variables
 }

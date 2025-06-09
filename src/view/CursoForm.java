@@ -1,20 +1,45 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package view;
 
-/**
- *
- * @author Micro
- */
+import controller.CursoDAO;
+import java.util.List;
+import javax.swing.ButtonGroup;
+import javax.swing.table.DefaultTableModel;
+import model.Curso;
+
 public class CursoForm extends javax.swing.JPanel {
 
-    /**
-     * Creates new form CursoForm
-     */
     public CursoForm() {
         initComponents();
+        preencherTabela(new CursoDAO().listar());
+        
+        ButtonGroup bg = new ButtonGroup();
+        bg.add(rdbId);
+        bg.add(rdbNome);
+        bg.add(rdbCargaHoraria);
+        rdbId.setSelected(true);
+    }
+    
+    private void configurarTabela() {
+        DefaultTableModel m = new DefaultTableModel() {
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
+        m.addColumn("Id");
+        m.addColumn("Nome");
+        m.addColumn("Carga Horária");
+        m.addColumn("Descrição");
+        tabCursos.setModel(m);
+    }
+    
+    private void preencherTabela(List<Curso> lista) {
+        configurarTabela();
+        DefaultTableModel m = (DefaultTableModel) tabCursos.getModel();
+        for (Curso c : lista) {
+            m.addRow(new Object[]{c.getId(),c.getNome(),c.getCargaHoraria(),c.getDescricao()});
+        }
+        tabCursos.setModel(m);
     }
 
     /**
@@ -26,19 +51,119 @@ public class CursoForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblCursos = new javax.swing.JLabel();
+        lblPesquisarPor = new javax.swing.JLabel();
+        rdbId = new javax.swing.JRadioButton();
+        rdbNome = new javax.swing.JRadioButton();
+        rdbCargaHoraria = new javax.swing.JRadioButton();
+        txtPesquisar = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabCursos = new javax.swing.JTable();
+
+        lblCursos.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
+        lblCursos.setText("Cursos");
+
+        lblPesquisarPor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        lblPesquisarPor.setText("Pesquisar por");
+
+        rdbId.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        rdbId.setText("Id");
+
+        rdbNome.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        rdbNome.setText("Nome");
+
+        rdbCargaHoraria.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        rdbCargaHoraria.setText("Carga Horária");
+
+        txtPesquisar.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtPesquisar.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPesquisarKeyReleased(evt);
+            }
+        });
+
+        tabCursos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tabCursos);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 858, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblCursos)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblPesquisarPor)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdbId)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdbNome)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(rdbCargaHoraria))
+                            .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, 522, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 324, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 532, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblCursos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblPesquisarPor)
+                    .addComponent(rdbNome)
+                    .addComponent(rdbCargaHoraria)
+                    .addComponent(rdbId))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyReleased
+        
+        String chave = txtPesquisar.getText();
+        
+        if (chave.isEmpty()) {
+            preencherTabela(new CursoDAO().listar());
+        } else {
+            if (rdbId.isSelected()) {
+                preencherTabela(new CursoDAO().pesquisarPorId(chave));
+            } else if (rdbNome.isSelected()) {
+                preencherTabela(new CursoDAO().pesquisarPorNome(chave));
+            } else if (rdbCargaHoraria.isSelected()) {
+                preencherTabela(new CursoDAO().pesquisarPorCargaHoraria(chave));
+            }
+        }
+        
+    }//GEN-LAST:event_txtPesquisarKeyReleased
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblCursos;
+    private javax.swing.JLabel lblPesquisarPor;
+    private javax.swing.JRadioButton rdbCargaHoraria;
+    private javax.swing.JRadioButton rdbId;
+    private javax.swing.JRadioButton rdbNome;
+    private javax.swing.JTable tabCursos;
+    private javax.swing.JTextField txtPesquisar;
     // End of variables declaration//GEN-END:variables
 }
