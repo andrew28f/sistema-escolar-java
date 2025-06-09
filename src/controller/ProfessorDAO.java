@@ -40,4 +40,24 @@ public class ProfessorDAO {
         }
     }
     
+    public int atualizar(Professor p) {
+        try {
+            
+            String sql = "update tb_professor set nome = ?, email = ?, telefone = ?, especialidade = ?"
+                    + "where id = ?";
+            
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, p.getNome());
+            cmd.setString(2, p.getEmail());
+            cmd.setString(3, p.getTelefone());
+            cmd.setString(4, p.getEspecialidade());
+            
+            return cmd.executeUpdate() > 0 ? p.getId() : -1;
+            
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return -1;
+        }
+    }
+    
 }
