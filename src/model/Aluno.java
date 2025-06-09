@@ -2,22 +2,32 @@ package model;
 
 public class Aluno {
     
+    private int id;
     private String nome;
     private String email;
     private String telefone;
     private String dataNascimento;
 
     public Aluno() {
-        this("","","","");
+        this(0,"","","","");
     }
 
-    public Aluno(String nome, String email, String telefone, String dataNascimento) {
+    public Aluno(int id, String nome, String email, String telefone, String dataNascimento) {
+        this.id = id;
         this.nome = nome;
         this.email = email;
         this.telefone = telefone;
         this.dataNascimento = dataNascimento;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    
     public String getNome() {
         return nome;
     }
@@ -52,6 +62,6 @@ public class Aluno {
 
     @Override
     public String toString() {
-        return String.format("Nome: %s\nEmail: %s\nTelefone: %s\nData de Nascimento: %s\n", nome, email, telefone, dataNascimento);
+        return String.format("Id: %d\nNome: %s\nEmail: %s\nTelefone: %s\nData de Nascimento: %s\n", id, nome, email, telefone, dataNascimento);
     }
 }
