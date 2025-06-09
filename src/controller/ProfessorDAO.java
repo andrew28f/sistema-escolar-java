@@ -87,4 +87,114 @@ public class ProfessorDAO {
         }
     }
     
+    public List<Professor> pesquisarPorId(String id) {
+        try {
+            int Id = Integer.parseInt(id);
+            
+            String sql = "select * from tb_professor where id = ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setInt(1, Id);
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Professor> lista = new ArrayList<>();
+            while (rs.next()) {
+                
+                Professor p = new Professor(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        rs.getString("especialidade")
+                );
+                lista.add(p);
+            }
+            
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Professor> pesquisarPorNome(String nome) {
+        try {
+            String sql = "select * from tb_professor where nome ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + nome + "%");
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Professor> lista = new ArrayList<>();
+            while (rs.next()) {
+                
+                Professor p = new Professor(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        rs.getString("especialidade")
+                );
+                lista.add(p);
+            }
+            
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Professor> pesquisarPorEmail(String email) {
+        try {
+            String sql = "select * from tb_professor where email ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + email + "%");
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Professor> lista = new ArrayList<>();
+            while (rs.next()) {
+                Professor p = new Professor(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        rs.getString("especialidade")
+                );
+                lista.add(p);
+            }
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Professor> pesquisarPorTelefone(String telefone) {
+        try {
+            String sql = "select * from tb_professor where telefone ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + telefone + "%");
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Professor> lista = new ArrayList<>();
+            while (rs.next()) {
+                Professor a = new Professor(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        rs.getString("especialidade")
+                );
+                lista.add(a);
+            }
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
 }

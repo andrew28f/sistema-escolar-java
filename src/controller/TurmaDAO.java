@@ -67,4 +67,172 @@ public class TurmaDAO {
         }
     }
     
+    public List<Turma> pesquisarPorId(String id) {
+        try {
+            int Id = Integer.parseInt(id);
+            
+            String sql = "select * from tb_turma where id = ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setInt(1, Id);
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Turma> lista = new ArrayList<>();
+            while (rs.next()) {
+                
+                Turma t = new Turma(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("curso_id"),
+                        rs.getInt("nivel_id"),
+                        rs.getInt("professor_id"),
+                        rs.getString("horario")
+                );
+                lista.add(t);
+            }
+            
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Turma> pesquisarPorNome(String nome) {
+        try {
+            String sql = "select * from tb_turma where nome ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + nome + "%");
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Turma> lista = new ArrayList<>();
+            while (rs.next()) {
+                
+                Turma t = new Turma(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("curso_id"),
+                        rs.getInt("nivel_id"),
+                        rs.getInt("professor_id"),
+                        rs.getString("horario")
+                );
+                lista.add(t);
+            }
+            
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Turma> pesquisarPorCursoId(String cursoId) {
+        try {
+            String sql = "select * from tb_turma where curso_id ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + cursoId + "%");
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Turma> lista = new ArrayList<>();
+            while (rs.next()) {
+                Turma t = new Turma(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("curso_id"),
+                        rs.getInt("nivel_id"),
+                        rs.getInt("professor_id"),
+                        rs.getString("horario")
+                );
+                lista.add(t);
+            }
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Turma> pesquisarPorNivelId(String nivelId) {
+        try {
+            String sql = "select * from tb_turma where nivel_id ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + nivelId + "%");
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Turma> lista = new ArrayList<>();
+            while (rs.next()) {
+                Turma t = new Turma(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("curso_id"),
+                        rs.getInt("nivel_id"),
+                        rs.getInt("professor_id"),
+                        rs.getString("horario")
+                );
+                lista.add(t);
+            }
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Turma> pesquisarPorProfessorId(String professorId) {
+        try {
+            String sql = "select * from tb_turma where professor_id ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + professorId + "%");
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Turma> lista = new ArrayList<>();
+            while (rs.next()) {
+                Turma t = new Turma(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("curso_id"),
+                        rs.getInt("nivel_id"),
+                        rs.getInt("professor_id"),
+                        rs.getString("horario")
+                );
+                lista.add(t);
+            }
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Turma> pesquisarPorHorario(String horario) {
+        try {
+            String sql = "select * from tb_turma where horario ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + horario + "%");
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Turma> lista = new ArrayList<>();
+            while (rs.next()) {
+                Turma t = new Turma(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("curso_id"),
+                        rs.getInt("nivel_id"),
+                        rs.getInt("professor_id"),
+                        rs.getString("horario")
+                );
+                lista.add(t);
+            }
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
 }

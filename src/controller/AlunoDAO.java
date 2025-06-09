@@ -109,4 +109,158 @@ public class AlunoDAO {
         }
     }
     
+    public List<Aluno> pesquisarPorId(String id) {
+        try {
+            int Id = Integer.parseInt(id);
+            
+            String sql = "select * from tb_aluno where id = ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setInt(1, Id);
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Aluno> lista = new ArrayList<>();
+            while (rs.next()) {
+                
+                // Recupera como java.sql.Date e converte para LocalDate
+                LocalDate dataNascimento = rs.getDate("data_nascimento").toLocalDate();
+                
+                // Formata dataNascimento para String
+                String data = dataNascimento.toString();
+                
+                Aluno a = new Aluno(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        data
+                );
+                lista.add(a);
+            }
+            
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Aluno> pesquisarPorNome(String nome) {
+        try {
+            String sql = "select * from tb_aluno where nome ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + nome + "%");
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Aluno> lista = new ArrayList<>();
+            while (rs.next()) {
+                
+                // Recupera como java.sql.Date e converte para LocalDate
+                LocalDate dataNascimento = rs.getDate("data_nascimento").toLocalDate();
+                
+                // Formata dataNascimento para String
+                String data = dataNascimento.toString();
+                
+                Aluno a = new Aluno(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        data
+                );
+                lista.add(a);
+            }
+            
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Aluno> pesquisarPorEmail(String email) {
+        try {
+            String sql = "select * from tb_aluno where email ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + email + "%");
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Aluno> lista = new ArrayList<>();
+            while (rs.next()) {
+                LocalDate dataNascimento = rs.getDate("data_nascimento").toLocalDate();
+                String data = dataNascimento.toString();
+                Aluno a = new Aluno(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        data
+                );
+                lista.add(a);
+            }
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Aluno> pesquisarPorTelefone(String telefone) {
+        try {
+            String sql = "select * from tb_aluno where telefone ilike ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, "%" + telefone + "%");
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Aluno> lista = new ArrayList<>();
+            while (rs.next()) {
+                LocalDate dataNascimento = rs.getDate("data_nascimento").toLocalDate();
+                String data = dataNascimento.toString();
+                Aluno a = new Aluno(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        data
+                );
+                lista.add(a);
+            }
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
+    public List<Aluno> pesquisarPorData(String dataParametro) {
+        try {
+            String sql = "select * from tb_aluno where data_nascimento = ? order by nome";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, dataParametro);
+            
+            ResultSet rs = cmd.executeQuery();
+            List<Aluno> lista = new ArrayList<>();
+            while (rs.next()) {
+                LocalDate dataNascimento = rs.getDate("data_nascimento").toLocalDate();
+                String data = dataNascimento.toString();
+                Aluno a = new Aluno(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getString("email"),
+                        rs.getString("telefone"),
+                        data
+                );
+                lista.add(a);
+            }
+            return lista;
+                
+        } catch(Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
 }
