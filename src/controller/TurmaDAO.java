@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import model.Turma;
 
 public class TurmaDAO {
@@ -38,6 +40,30 @@ public class TurmaDAO {
         } catch (Exception e) {
             System.err.println("ERRO: " + e.getMessage());
             return -1;
+        }
+    }
+    
+    public List<Turma> listar() {
+        try {
+            String sql = "select * from tb_turma order by nome";
+            cmd = con.prepareStatement(sql);
+            ResultSet rs = cmd.executeQuery();
+            List<Turma> lista = new ArrayList<>();
+            while (rs.next()) {
+                Turma t = new Turma(
+                        rs.getInt("id"),
+                        rs.getString("nome"),
+                        rs.getInt("curso_id"),
+                        rs.getInt("nivel_id"),
+                        rs.getInt("professor_id"),
+                        rs.getString("horario")
+                );
+                lista.add(t);
+            }
+            return lista;
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
         }
     }
     
