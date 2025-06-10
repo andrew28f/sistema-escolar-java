@@ -6,9 +6,9 @@ import javax.swing.ButtonGroup;
 import javax.swing.table.DefaultTableModel;
 import model.Nivel;
 
-public class NivelFom extends javax.swing.JPanel {
+public class NivelForm extends javax.swing.JPanel {
 
-    public NivelFom() {
+    public NivelForm() {
         initComponents();
         preencherTabela(new NivelDAO().listar());
         
@@ -132,8 +132,8 @@ public class NivelFom extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtPesquisar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 312, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(73, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 347, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(38, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

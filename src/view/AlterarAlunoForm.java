@@ -13,10 +13,10 @@ import model.Aluno;
  *
  * @author Micro
  */
-public class AlterarAluno extends javax.swing.JFrame {
+public class AlterarAlunoForm extends javax.swing.JFrame {
 
     
-    public AlterarAluno() {
+    public AlterarAlunoForm() {
         initComponents();
         this.setTitle("Alterar cadastro de Alunos");
         this.setResizable(false);
@@ -26,7 +26,7 @@ public class AlterarAluno extends javax.swing.JFrame {
         
     }
     
-    public AlterarAluno(Aluno a) {
+    public AlterarAlunoForm(Aluno a) {
         initComponents();
         this.setTitle("Alterar cadastro de Alunos");
         this.setResizable(false);
@@ -234,20 +234,21 @@ public class AlterarAluno extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AlterarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarAlunoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AlterarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarAlunoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AlterarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarAlunoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AlterarAluno.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AlterarAlunoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new AlterarAluno().setVisible(true);
+                new AlterarAlunoForm().setVisible(true);
             }
         });
     }

@@ -192,7 +192,7 @@ public class AlunoForm extends javax.swing.JPanel {
 
             Aluno a = new Aluno(id, nome, email, telefone, dataNascimento);
 
-            AlterarAluno alterar = new AlterarAluno(a);
+            AlterarAlunoForm alterar = new AlterarAlunoForm(a);
             alterar.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Nenhum aluno selecionado na tabela para alterar.");
@@ -205,7 +205,7 @@ public class AlunoForm extends javax.swing.JPanel {
     }//GEN-LAST:event_tabAlunosMouseClicked
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        CadastroAlunos c = new CadastroAlunos();
+        CadastroAlunoForm c = new CadastroAlunoForm();
         c.setVisible(true);
     }//GEN-LAST:event_btnAdicionarActionPerformed
 

@@ -5,12 +5,12 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import model.Aluno;
 
-public class CadastroAlunos extends javax.swing.JFrame {
+public class CadastroAlunoForm extends javax.swing.JFrame {
 
     /**
      * Creates new form CadastroAlunos
      */
-    public CadastroAlunos() {
+    public CadastroAlunoForm() {
         initComponents();
         this.setTitle("Cadastro de Alunos");
         this.setResizable(false);
@@ -195,20 +195,21 @@ public class CadastroAlunos extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroAlunos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroAlunoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroAlunos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroAlunoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroAlunos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroAlunoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroAlunos.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CadastroAlunoForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CadastroAlunos().setVisible(true);
+                new CadastroAlunoForm().setVisible(true);
             }
         });
     }
