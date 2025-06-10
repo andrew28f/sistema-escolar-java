@@ -15,7 +15,7 @@ public class UsuarioDAO {
         con = Conexao.conectar();
     }
     
-    public int inserir(Usuario u) {
+    public int cadastro(Usuario u) {
         try {
             
             // Instrução SQL para inserção de dados
@@ -39,6 +39,22 @@ public class UsuarioDAO {
             // Retorna -1 se algo der errado
             return -1;
             
+        } catch (Exception e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return -1;
+        }
+    }
+    
+    public int login(Usuario u) {
+        try {
+            String sql = "select * from tb_usuario where email = ? and senha = MD5(?)";
+            cmd = con.prepareStatement(sql);
+            cmd.setString(1, u.getEmail());
+            cmd.setString(2, u.getSenha());
+            ResultSet rs = cmd.executeQuery();
+            
+            // Caso login esteja correto, retorna chave primária(id) do usuário
+            return rs.next() ? rs.getInt("id") : -1;
         } catch (Exception e) {
             System.err.println("ERRO: " + e.getMessage());
             return -1;
