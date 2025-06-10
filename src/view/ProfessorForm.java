@@ -6,6 +6,7 @@ package view;
 
 import controller.ProfessorDAO;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import model.Professor;
 
@@ -62,7 +63,7 @@ public class ProfessorForm extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         tabProfessores = new javax.swing.JTable();
         btnAdicionar = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnAlterar = new javax.swing.JButton();
 
         lblProfessores.setFont(new java.awt.Font("Segoe UI Black", 0, 36)); // NOI18N
         lblProfessores.setText("Professores");
@@ -95,9 +96,19 @@ public class ProfessorForm extends javax.swing.JPanel {
 
         btnAdicionar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnAdicionar.setText("Adicionar");
+        btnAdicionar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAdicionarActionPerformed(evt);
+            }
+        });
 
-        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        jButton1.setText("Alterar");
+        btnAlterar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btnAlterar.setText("Alterar");
+        btnAlterar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAlterarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -121,11 +132,11 @@ public class ProfessorForm extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnAdicionar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(btnAlterar)
                 .addGap(283, 283, 283))
         );
 
-        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdicionar, jButton1});
+        layout.linkSize(javax.swing.SwingConstants.HORIZONTAL, new java.awt.Component[] {btnAdicionar, btnAlterar});
 
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -143,7 +154,7 @@ public class ProfessorForm extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAdicionar)
-                    .addComponent(jButton1))
+                    .addComponent(btnAlterar))
                 .addGap(46, 46, 46))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -170,11 +181,35 @@ public class ProfessorForm extends javax.swing.JPanel {
 
     }//GEN-LAST:event_txtPesquisarKeyReleased
 
+    private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
+        CadastroProfessorForm c = new CadastroProfessorForm();
+        c.setVisible(true);
+    }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
+        int linha = tabProfessores.getSelectedRow();
+        
+        if (linha >= 0) {
+            int id = (int) tabProfessores.getValueAt(linha, 0);
+            String nome = tabProfessores.getValueAt(linha, 1).toString();
+            String email = tabProfessores.getValueAt(linha, 2).toString();
+            String telefone = tabProfessores.getValueAt(linha, 3).toString();
+            String especialidade = tabProfessores.getValueAt(linha, 4).toString();
+
+            Professor p = new Professor(id, nome, email, telefone, especialidade);
+
+            AlterarProfessorForm a = new AlterarProfessorForm(p);
+            a.setVisible(true);
+        } else {
+            JOptionPane.showMessageDialog(null, "Nenhum aluno selecionado na tabela para alterar.");
+        }
+    }//GEN-LAST:event_btnAlterarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdicionar;
+    private javax.swing.JButton btnAlterar;
     private javax.swing.JComboBox<String> cbxPesquisarPor;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblPesquisarPor;
     private javax.swing.JLabel lblProfessores;
