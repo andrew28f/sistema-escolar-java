@@ -15,6 +15,7 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         painelPrincipal.add(new TurmaForm(), "TurmaForm");
         painelPrincipal.add(new CursoForm(), "CursoForm");
         painelPrincipal.add(new NivelForm(), "NivelForm");
+        painelPrincipal.add(new SobreForm(), "SobreForm");
         
         // Lógica para trocar os cards
         CardLayout cl = (CardLayout) painelPrincipal.getLayout();
@@ -36,6 +37,7 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         btnTurma = new javax.swing.JButton();
         btnCurso = new javax.swing.JButton();
         btnNivel = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
         btnUsuario = new javax.swing.JButton();
         painelPrincipal = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
@@ -99,6 +101,18 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         });
         barraNavegacao.add(btnNivel);
 
+        jButton1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setText("Sobre");
+        jButton1.setActionCommand("Usuarios");
+        jButton1.setContentAreaFilled(false);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        barraNavegacao.add(jButton1);
+
         btnUsuario.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         btnUsuario.setForeground(new java.awt.Color(255, 102, 102));
         btnUsuario.setText("Sair");
@@ -161,6 +175,11 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnUsuarioActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        CardLayout cl = (CardLayout) painelPrincipal.getLayout();
+        cl.show(painelPrincipal, "SobreForm");
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -204,6 +223,7 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
     private javax.swing.JButton btnProfessor;
     private javax.swing.JButton btnTurma;
     private javax.swing.JButton btnUsuario;
+    private javax.swing.JButton jButton1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel painelPrincipal;
     // End of variables declaration//GEN-END:variables

@@ -95,16 +95,13 @@ public class TurmaDAO {
     
     public TurmaDetalhada retornarNomes(Turma turma) {
         try {
-            String sql = "select t.id as id_turma,"
-                    + "t.nome as nome_turma,"
-                    + "c.nome as nome_curso,"
-                    + "n.nome as nome_nivel,"
-                    + "p.nome as nome_professor,"
-                    + "t.horario as horario_turma"
-                    + "from tb_turma t where t.id = ?"
-                    + "join tb_curso c on t.curso_id = c.id"
-                    + "join tb_nivel n on t.nivel_id = n.id"
-                    + "join tb_professor p on t.professor_id = p.id";
+            String sql = "select t.id as id_turma, t.nome as nome_turma, c.nome as nome_curso, \n" +
+                        "n.nome as nome_nivel, p.nome as nome_professor, t.horario\n" +
+                        "from tb_turma t\n" +
+                        "join tb_curso c on t.curso_id = c.id\n" +
+                        "join tb_nivel n on t.nivel_id = n.id\n" +
+                        "join tb_professor p on t.professor_id = p.id\n" +
+                        "where t.id = ?";
             cmd = con.prepareStatement(sql);
             cmd.setInt(1, turma.getId());
             
