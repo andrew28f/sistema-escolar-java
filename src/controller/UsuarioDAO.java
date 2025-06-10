@@ -15,7 +15,7 @@ public class UsuarioDAO {
         con = Conexao.conectar();
     }
     
-    public int cadastro(Usuario u) {
+    public int cadastrar(Usuario u) {
         try {
             
             // Instrução SQL para inserção de dados
@@ -45,7 +45,7 @@ public class UsuarioDAO {
         }
     }
     
-    public int login(Usuario u) {
+    public int autenticar(Usuario u) {
         try {
             String sql = "select * from tb_usuario where email = ? and senha = MD5(?)";
             cmd = con.prepareStatement(sql);
