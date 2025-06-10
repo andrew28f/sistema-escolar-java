@@ -10,8 +10,11 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         
-        AlunoForm alunoForm = new AlunoForm();
-        painelPrincipal.add(alunoForm, "AlunoForm");
+        painelPrincipal.add(new AlunoForm(), "AlunoForm");
+        painelPrincipal.add(new ProfessorForm(), "ProfessorForm");
+        painelPrincipal.add(new TurmaForm(), "TurmaForm");
+        painelPrincipal.add(new CursoForm(), "CursoForm");
+        painelPrincipal.add(new NivelForm(), "NivelForm");
         
         // Lógica para trocar os cards
         CardLayout cl = (CardLayout) painelPrincipal.getLayout();
@@ -56,6 +59,11 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         btnProfessor.setForeground(new java.awt.Color(255, 255, 255));
         btnProfessor.setText("Professor");
         btnProfessor.setContentAreaFilled(false);
+        btnProfessor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProfessorActionPerformed(evt);
+            }
+        });
         barraNavegacao.add(btnProfessor);
 
         btnTurma.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
@@ -73,18 +81,33 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
         btnCurso.setForeground(new java.awt.Color(255, 255, 255));
         btnCurso.setText("Curso");
         btnCurso.setContentAreaFilled(false);
+        btnCurso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCursoActionPerformed(evt);
+            }
+        });
         barraNavegacao.add(btnCurso);
 
         btnNivel.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         btnNivel.setForeground(new java.awt.Color(255, 255, 255));
         btnNivel.setText("Nível");
         btnNivel.setContentAreaFilled(false);
+        btnNivel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNivelActionPerformed(evt);
+            }
+        });
         barraNavegacao.add(btnNivel);
 
         btnUsuario.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        btnUsuario.setForeground(new java.awt.Color(255, 255, 255));
-        btnUsuario.setText("Usuário");
+        btnUsuario.setForeground(new java.awt.Color(255, 102, 102));
+        btnUsuario.setText("Sair");
         btnUsuario.setContentAreaFilled(false);
+        btnUsuario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUsuarioActionPerformed(evt);
+            }
+        });
         barraNavegacao.add(btnUsuario);
 
         getContentPane().add(barraNavegacao, java.awt.BorderLayout.PAGE_START);
@@ -110,12 +133,33 @@ public class MenuPrincipalForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAlunoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlunoActionPerformed
-        
+        CardLayout cl = (CardLayout) painelPrincipal.getLayout();
+        cl.show(painelPrincipal, "AlunoForm");
     }//GEN-LAST:event_btnAlunoActionPerformed
 
     private void btnTurmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTurmaActionPerformed
-        // TODO add your handling code here:
+        CardLayout cl = (CardLayout) painelPrincipal.getLayout();
+        cl.show(painelPrincipal, "TurmaForm");
     }//GEN-LAST:event_btnTurmaActionPerformed
+
+    private void btnProfessorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProfessorActionPerformed
+        CardLayout cl = (CardLayout) painelPrincipal.getLayout();
+        cl.show(painelPrincipal, "ProfessorForm");
+    }//GEN-LAST:event_btnProfessorActionPerformed
+
+    private void btnCursoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCursoActionPerformed
+        CardLayout cl = (CardLayout) painelPrincipal.getLayout();
+        cl.show(painelPrincipal, "CursoForm");
+    }//GEN-LAST:event_btnCursoActionPerformed
+
+    private void btnNivelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNivelActionPerformed
+        CardLayout cl = (CardLayout) painelPrincipal.getLayout();
+        cl.show(painelPrincipal, "NivelForm");
+    }//GEN-LAST:event_btnNivelActionPerformed
+
+    private void btnUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUsuarioActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_btnUsuarioActionPerformed
 
     /**
      * @param args the command line arguments
