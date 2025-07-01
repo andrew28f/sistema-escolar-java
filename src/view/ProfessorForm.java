@@ -35,6 +35,7 @@ public class ProfessorForm extends javax.swing.JPanel {
         m.addColumn("Nome");
         m.addColumn("Email");
         m.addColumn("Telefone");
+        m.addColumn("Especialidade");
         tabProfessores.setModel(m);
     }
     
@@ -42,7 +43,7 @@ public class ProfessorForm extends javax.swing.JPanel {
         configurarTabela();
         DefaultTableModel m = (DefaultTableModel)tabProfessores.getModel();
         for(Professor p : lista){
-            m.addRow(new Object[]{p.getId(),p.getNome(),p.getEmail(),p.getTelefone()});
+            m.addRow(new Object[]{p.getId(),p.getNome(),p.getEmail(),p.getTelefone(),p.getEspecialidade()});
         }
         tabProfessores.setModel(m);
     }
@@ -201,7 +202,7 @@ public class ProfessorForm extends javax.swing.JPanel {
             AlterarProfessorForm a = new AlterarProfessorForm(p);
             a.setVisible(true);
         } else {
-            JOptionPane.showMessageDialog(null, "Nenhum aluno selecionado na tabela para alterar.");
+            JOptionPane.showMessageDialog(null, "Nenhum professor selecionado na tabela para alterar.");
         }
     }//GEN-LAST:event_btnAlterarActionPerformed
 

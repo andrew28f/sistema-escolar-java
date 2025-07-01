@@ -40,10 +40,9 @@ public class CadastroProfessorForm extends javax.swing.JFrame {
         lblTelefone = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
         lblEspecialidade = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtEspecialidade = new javax.swing.JTextArea();
         btnSalvar = new javax.swing.JButton();
         btnVoltar = new javax.swing.JButton();
+        txtEspecialidade = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -68,11 +67,6 @@ public class CadastroProfessorForm extends javax.swing.JFrame {
         lblEspecialidade.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblEspecialidade.setText("Especialidade");
 
-        txtEspecialidade.setColumns(20);
-        txtEspecialidade.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        txtEspecialidade.setRows(5);
-        jScrollPane1.setViewportView(txtEspecialidade);
-
         btnSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnSalvar.setText("Salvar");
         btnSalvar.addActionListener(new java.awt.event.ActionListener() {
@@ -88,6 +82,8 @@ public class CadastroProfessorForm extends javax.swing.JFrame {
                 btnVoltarActionPerformed(evt);
             }
         });
+
+        txtEspecialidade.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -118,7 +114,7 @@ public class CadastroProfessorForm extends javax.swing.JFrame {
                                 .addComponent(btnSalvar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnVoltar))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING))
+                            .addComponent(txtEspecialidade, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addContainerGap())))
         );
 
@@ -144,12 +140,12 @@ public class CadastroProfessorForm extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(lblEspecialidade)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(txtEspecialidade, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSalvar)
                     .addComponent(btnVoltar))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
 
         pack();
@@ -222,14 +218,13 @@ public class CadastroProfessorForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSalvar;
     private javax.swing.JButton btnVoltar;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCadastroProfessores;
     private javax.swing.JLabel lblEmail;
     private javax.swing.JLabel lblEspecialidade;
     private javax.swing.JLabel lblNome;
     private javax.swing.JLabel lblTelefone;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextArea txtEspecialidade;
+    private javax.swing.JTextField txtEspecialidade;
     private javax.swing.JTextField txtNome;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
