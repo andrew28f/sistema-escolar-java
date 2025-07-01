@@ -13,7 +13,7 @@ public class TurmaForm extends javax.swing.JPanel {
      */
     public TurmaForm() {
         initComponents();
-        preencherTabela(new TurmaDAO().listar());
+        preencherTabela(new TurmaDAO().listarPorNomes());
     }
     
     private void configurarTabela(){
@@ -32,11 +32,11 @@ public class TurmaForm extends javax.swing.JPanel {
         tabTurmas.setModel(m);
     }
     
-    private void preencherTabela(List<Turma> lista){
+    private void preencherTabela(List<TurmaDetalhada> lista){
         configurarTabela();
         DefaultTableModel m = (DefaultTableModel)tabTurmas.getModel();
-        for(Turma t : lista){
-            m.addRow(new Object[]{t.getId(),t.getNome(),t.getCursoId(),t.getNivelId(),t.getProfessorId(),t.getHorario()});
+        for(TurmaDetalhada t : lista){
+            m.addRow(new Object[]{t.getId(),t.getNome(),t.getNomeCurso(),t.getNomeNivel(),t.getNomeProfessor(),t.getHorario()});
         }
         tabTurmas.setModel(m);
     }
@@ -142,7 +142,7 @@ public class TurmaForm extends javax.swing.JPanel {
         String chave = txtPesquisar.getText();
 
         if (chave.isEmpty()) {
-            preencherTabela(new TurmaDAO().listar());
+            preencherTabela(new TurmaDAO().listarPorNomes());
         } else {
             String filtro = cbxPesquisarPor.getSelectedItem().toString();
 
@@ -151,11 +151,11 @@ public class TurmaForm extends javax.swing.JPanel {
             } else if (filtro.equals("Nome")) {
                 preencherTabela(new TurmaDAO().pesquisarPorNome(chave));
             } else if (filtro.equals("Curso")) {
-                preencherTabela(new TurmaDAO().pesquisarPorCursoId(chave));
+                preencherTabela(new TurmaDAO().pesquisarPorCurso(chave));
             } else if (filtro.equals("Nível")) {
-                preencherTabela(new TurmaDAO().pesquisarPorNivelId(chave));
+                preencherTabela(new TurmaDAO().pesquisarPorNivel(chave));
             } else if (filtro.equals("Professor")) {
-                preencherTabela(new TurmaDAO().pesquisarPorProfessorId(chave));
+                preencherTabela(new TurmaDAO().pesquisarPorProfessor(chave));
             } else if (filtro.equals("Horário")) {
                 preencherTabela(new TurmaDAO().pesquisarPorHorario(chave));
             }

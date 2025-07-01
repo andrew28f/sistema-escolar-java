@@ -3,6 +3,7 @@ package controller;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class TurmaDAO {
     
     public List<Turma> listar() {
         try {
-            String sql = "select * from tb_turma order by nome";
+            String sql = "select * from tb_turma order by id";
             cmd = con.prepareStatement(sql);
             ResultSet rs = cmd.executeQuery();
             List<Turma> lista = new ArrayList<>();
@@ -68,45 +69,19 @@ public class TurmaDAO {
         }
     }
     
-    public Turma retornarIds(TurmaDetalhada turma) {
+    public List<TurmaDetalhada> listarPorNomes() {
         try {
-            String sql = "select * from tb_turma t where t.id = ?";
-            cmd = con.prepareStatement(sql);
-            cmd.setInt(1, turma.getId());
-            
-            ResultSet rs = cmd.executeQuery();
-            if (rs.next()) {
-                Turma t = new Turma(
-                        rs.getInt("id"),
-                        rs.getString("nome"),
-                        rs.getInt("curso_id"),
-                        rs.getInt("nivel_id"),
-                        rs.getInt("professor_id"),
-                        rs.getString("horario")
-                );
-                return t;
-            }
-            return null;
-        } catch (Exception e) {
-            System.err.println("ERRO: " + e.getMessage());
-            return null;
-        }
-    }
-    
-    public TurmaDetalhada retornarNomes(Turma turma) {
-        try {
-            String sql = "select t.id as id_turma, t.nome as nome_turma, c.nome as nome_curso, \n" +
+            String sql = "select t.id, t.nome, c.nome as nome_curso,\n" +
                         "n.nome as nome_nivel, p.nome as nome_professor, t.horario\n" +
                         "from tb_turma t\n" +
                         "join tb_curso c on t.curso_id = c.id\n" +
                         "join tb_nivel n on t.nivel_id = n.id\n" +
-                        "join tb_professor p on t.professor_id = p.id\n" +
-                        "where t.id = ?";
+                        "join tb_professor p on t.professor_id = p.id";
             cmd = con.prepareStatement(sql);
-            cmd.setInt(1, turma.getId());
             
             ResultSet rs = cmd.executeQuery();
-            if (rs.next()) {
+            List<TurmaDetalhada> lista = new ArrayList<>();
+            while (rs.next()) {
                 TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
@@ -115,32 +90,38 @@ public class TurmaDAO {
                         rs.getString("nome_professor"),
                         rs.getString("horario")
                 );
-                return t;
+                lista.add(t);
             }
-            return null;
-        } catch (Exception e) {
+            return lista;
+        } catch (SQLException e) {
             System.err.println("ERRO: " + e.getMessage());
             return null;
         }
     }
     
-    public List<Turma> pesquisarPorId(String id) {
+    public List<TurmaDetalhada> pesquisarPorId(String id) {
         try {
             int Id = Integer.parseInt(id);
             
-            String sql = "select * from tb_turma where id = ? order by nome";
+            String sql = "select t.id, t.nome, c.nome as nome_curso, \n" +
+                        "n.nome as nome_nivel, p.nome as nome_professor, t.horario\n" +
+                        "from tb_turma t\n" +
+                        "join tb_curso c on t.curso_id = c.id\n" +
+                        "join tb_nivel n on t.nivel_id = n.id\n" +
+                        "join tb_professor p on t.professor_id = p.id\n" +
+                        "where id = ? order by id";
             cmd = con.prepareStatement(sql);
             cmd.setInt(1, Id);
             
             ResultSet rs = cmd.executeQuery();
-            List<Turma> lista = new ArrayList<>();
+            List<TurmaDetalhada> lista = new ArrayList<>();
             while (rs.next()) {
-                Turma t = new Turma(
+                TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getInt("curso_id"),
-                        rs.getInt("nivel_id"),
-                        rs.getInt("professor_id"),
+                        rs.getString("curso_id"),
+                        rs.getString("nivel_id"),
+                        rs.getString("professor_id"),
                         rs.getString("horario")
                 );
                 lista.add(t);
@@ -154,21 +135,27 @@ public class TurmaDAO {
         }
     }
     
-    public List<Turma> pesquisarPorNome(String nome) {
+    public List<TurmaDetalhada> pesquisarPorNome(String nome) {
         try {
-            String sql = "select * from tb_turma where nome ilike ? order by nome";
+            String sql = "select t.id, t.nome, c.nome as nome_curso, \n" +
+                        "n.nome as nome_nivel, p.nome as nome_professor, t.horario\n" +
+                        "from tb_turma t\n" +
+                        "join tb_curso c on t.curso_id = c.id\n" +
+                        "join tb_nivel n on t.nivel_id = n.id\n" +
+                        "join tb_professor p on t.professor_id = p.id\n" +
+                        "where nome ilike ? order by id";
             cmd = con.prepareStatement(sql);
             cmd.setString(1, "%" + nome + "%");
             
             ResultSet rs = cmd.executeQuery();
-            List<Turma> lista = new ArrayList<>();
+            List<TurmaDetalhada> lista = new ArrayList<>();
             while (rs.next()) {
-                Turma t = new Turma(
+                TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getInt("curso_id"),
-                        rs.getInt("nivel_id"),
-                        rs.getInt("professor_id"),
+                        rs.getString("curso_id"),
+                        rs.getString("nivel_id"),
+                        rs.getString("professor_id"),
                         rs.getString("horario")
                 );
                 lista.add(t);
@@ -182,21 +169,27 @@ public class TurmaDAO {
         }
     }
     
-    public List<Turma> pesquisarPorCursoId(String cursoId) {
+    public List<TurmaDetalhada> pesquisarPorCurso(String curso) {
         try {
-            String sql = "select * from tb_turma where curso_id ilike ? order by nome";
+            String sql = "select t.id, t.nome, c.nome as nome_curso, \n" +
+                        "n.nome as nome_nivel, p.nome as nome_professor, t.horario\n" +
+                        "from tb_turma t\n" +
+                        "join tb_curso c on t.curso_id = c.id\n" +
+                        "join tb_nivel n on t.nivel_id = n.id\n" +
+                        "join tb_professor p on t.professor_id = p.id\n" +
+                        "where nome_curso ilike ? order by id";
             cmd = con.prepareStatement(sql);
-            cmd.setString(1, "%" + cursoId + "%");
+            cmd.setString(1, "%" + curso + "%");
             
             ResultSet rs = cmd.executeQuery();
-            List<Turma> lista = new ArrayList<>();
+            List<TurmaDetalhada> lista = new ArrayList<>();
             while (rs.next()) {
-                Turma t = new Turma(
+                TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getInt("curso_id"),
-                        rs.getInt("nivel_id"),
-                        rs.getInt("professor_id"),
+                        rs.getString("curso_id"),
+                        rs.getString("nivel_id"),
+                        rs.getString("professor_id"),
                         rs.getString("horario")
                 );
                 lista.add(t);
@@ -209,21 +202,27 @@ public class TurmaDAO {
         }
     }
     
-    public List<Turma> pesquisarPorNivelId(String nivelId) {
+    public List<TurmaDetalhada> pesquisarPorNivel(String nivel) {
         try {
-            String sql = "select * from tb_turma where nivel_id ilike ? order by nome";
+            String sql = "select t.id, t.nome, c.nome as nome_curso, \n" +
+                        "n.nome as nome_nivel, p.nome as nome_professor, t.horario\n" +
+                        "from tb_turma t\n" +
+                        "join tb_curso c on t.curso_id = c.id\n" +
+                        "join tb_nivel n on t.nivel_id = n.id\n" +
+                        "join tb_professor p on t.professor_id = p.id\n" +
+                        "where nome_nivel ilike ? order by id";
             cmd = con.prepareStatement(sql);
-            cmd.setString(1, "%" + nivelId + "%");
+            cmd.setString(1, "%" + nivel + "%");
             
             ResultSet rs = cmd.executeQuery();
-            List<Turma> lista = new ArrayList<>();
+            List<TurmaDetalhada> lista = new ArrayList<>();
             while (rs.next()) {
-                Turma t = new Turma(
+                TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getInt("curso_id"),
-                        rs.getInt("nivel_id"),
-                        rs.getInt("professor_id"),
+                        rs.getString("curso_id"),
+                        rs.getString("nivel_id"),
+                        rs.getString("professor_id"),
                         rs.getString("horario")
                 );
                 lista.add(t);
@@ -236,21 +235,27 @@ public class TurmaDAO {
         }
     }
     
-    public List<Turma> pesquisarPorProfessorId(String professorId) {
+    public List<TurmaDetalhada> pesquisarPorProfessor(String professor) {
         try {
-            String sql = "select * from tb_turma where professor_id ilike ? order by nome";
+            String sql = "select t.id, t.nome, c.nome as nome_curso, \n" +
+                        "n.nome as nome_nivel, p.nome as nome_professor, t.horario\n" +
+                        "from tb_turma t\n" +
+                        "join tb_curso c on t.curso_id = c.id\n" +
+                        "join tb_nivel n on t.nivel_id = n.id\n" +
+                        "join tb_professor p on t.professor_id = p.id\n" +
+                        "where nome_professor ilike ? order by id";
             cmd = con.prepareStatement(sql);
-            cmd.setString(1, "%" + professorId + "%");
+            cmd.setString(1, "%" + professor + "%");
             
             ResultSet rs = cmd.executeQuery();
-            List<Turma> lista = new ArrayList<>();
+            List<TurmaDetalhada> lista = new ArrayList<>();
             while (rs.next()) {
-                Turma t = new Turma(
+                TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getInt("curso_id"),
-                        rs.getInt("nivel_id"),
-                        rs.getInt("professor_id"),
+                        rs.getString("curso_id"),
+                        rs.getString("nivel_id"),
+                        rs.getString("professor_id"),
                         rs.getString("horario")
                 );
                 lista.add(t);
@@ -263,21 +268,27 @@ public class TurmaDAO {
         }
     }
     
-    public List<Turma> pesquisarPorHorario(String horario) {
+    public List<TurmaDetalhada> pesquisarPorHorario(String horario) {
         try {
-            String sql = "select * from tb_turma where horario ilike ? order by nome";
+            String sql = "select t.id, t.nome, c.nome as nome_curso, \n" +
+                        "n.nome as nome_nivel, p.nome as nome_professor, t.horario\n" +
+                        "from tb_turma t\n" +
+                        "join tb_curso c on t.curso_id = c.id\n" +
+                        "join tb_nivel n on t.nivel_id = n.id\n" +
+                        "join tb_professor p on t.professor_id = p.id\n" +
+                        "where horario ilike ? order by id";
             cmd = con.prepareStatement(sql);
             cmd.setString(1, "%" + horario + "%");
             
             ResultSet rs = cmd.executeQuery();
-            List<Turma> lista = new ArrayList<>();
+            List<TurmaDetalhada> lista = new ArrayList<>();
             while (rs.next()) {
-                Turma t = new Turma(
+                TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getInt("curso_id"),
-                        rs.getInt("nivel_id"),
-                        rs.getInt("professor_id"),
+                        rs.getString("curso_id"),
+                        rs.getString("nivel_id"),
+                        rs.getString("professor_id"),
                         rs.getString("horario")
                 );
                 lista.add(t);
