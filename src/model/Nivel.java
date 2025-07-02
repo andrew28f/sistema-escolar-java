@@ -52,7 +52,7 @@ public class Nivel {
 
     @Override
     public String toString() {
-        return String.format("Id: %d\nNome: %s\nDescrição: %d\nRequisitos: %s\n", id, nome, descricao, requisitos);
+        return getNome();
     }
     
 }

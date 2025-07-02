@@ -62,7 +62,7 @@ public class Professor {
     
     @Override
     public String toString() {
-        return String.format("Id: %d\nNome: %s\nEmail: %s\nTelefone: %s\nEspecialidade: %s\n", nome, email, telefone, especialidade);
+        return getNome();
     }
     
 }

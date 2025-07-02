@@ -52,7 +52,7 @@ public class Curso {
 
     @Override
     public String toString() {
-        return String.format("Id: %d\nNome: %s\nCarga Horária: %d\nDescrição: %s\n", id, nome, cargaHoraria, descricao);
+        return getNome();
     }
     
 }
