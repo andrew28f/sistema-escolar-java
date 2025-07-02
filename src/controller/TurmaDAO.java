@@ -301,4 +301,20 @@ public class TurmaDAO {
         }
     }
     
+    public List listarHorarios() {
+        try {
+            String sql = "select distinct horario from tb_turma order by horario";
+            cmd = con.prepareStatement(sql);
+            ResultSet rs = cmd.executeQuery();
+            List lista = new ArrayList<>();
+            while (rs.next()) {
+                lista.add(rs.getString("horario"));
+            }
+            return lista;
+        } catch(SQLException e) {
+            System.err.println("ERRO: " + e.getMessage());
+            return null;
+        }
+    }
+    
 }
