@@ -99,9 +99,9 @@ public class TurmaDAO {
         }
     }
     
-    public List<TurmaDetalhada> pesquisarPorId(String id) {
+    public List<TurmaDetalhada> pesquisarPorId(String idString) {
         try {
-            int Id = Integer.parseInt(id);
+            int id = Integer.parseInt(idString);
             
             String sql = "select t.id, t.nome, c.nome as nome_curso, \n" +
                         "n.nome as nome_nivel, p.nome as nome_professor, t.horario\n" +
@@ -109,9 +109,9 @@ public class TurmaDAO {
                         "join tb_curso c on t.curso_id = c.id\n" +
                         "join tb_nivel n on t.nivel_id = n.id\n" +
                         "join tb_professor p on t.professor_id = p.id\n" +
-                        "where id = ? order by id";
+                        "where t.id = ? order by id";
             cmd = con.prepareStatement(sql);
-            cmd.setInt(1, Id);
+            cmd.setInt(1, id);
             
             ResultSet rs = cmd.executeQuery();
             List<TurmaDetalhada> lista = new ArrayList<>();
@@ -119,9 +119,9 @@ public class TurmaDAO {
                 TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getString("curso_id"),
-                        rs.getString("nivel_id"),
-                        rs.getString("professor_id"),
+                        rs.getString("nome_curso"),
+                        rs.getString("nome_nivel"),
+                        rs.getString("nome_professor"),
                         rs.getString("horario")
                 );
                 lista.add(t);
@@ -143,7 +143,7 @@ public class TurmaDAO {
                         "join tb_curso c on t.curso_id = c.id\n" +
                         "join tb_nivel n on t.nivel_id = n.id\n" +
                         "join tb_professor p on t.professor_id = p.id\n" +
-                        "where nome ilike ? order by id";
+                        "where t.nome ilike ? order by id";
             cmd = con.prepareStatement(sql);
             cmd.setString(1, "%" + nome + "%");
             
@@ -153,9 +153,9 @@ public class TurmaDAO {
                 TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getString("curso_id"),
-                        rs.getString("nivel_id"),
-                        rs.getString("professor_id"),
+                        rs.getString("nome_curso"),
+                        rs.getString("nome_nivel"),
+                        rs.getString("nome_professor"),
                         rs.getString("horario")
                 );
                 lista.add(t);
@@ -177,7 +177,7 @@ public class TurmaDAO {
                         "join tb_curso c on t.curso_id = c.id\n" +
                         "join tb_nivel n on t.nivel_id = n.id\n" +
                         "join tb_professor p on t.professor_id = p.id\n" +
-                        "where nome_curso ilike ? order by id";
+                        "where c.nome ilike ? order by id";
             cmd = con.prepareStatement(sql);
             cmd.setString(1, "%" + curso + "%");
             
@@ -187,9 +187,9 @@ public class TurmaDAO {
                 TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getString("curso_id"),
-                        rs.getString("nivel_id"),
-                        rs.getString("professor_id"),
+                        rs.getString("nome_curso"),
+                        rs.getString("nome_nivel"),
+                        rs.getString("nome_professor"),
                         rs.getString("horario")
                 );
                 lista.add(t);
@@ -210,7 +210,7 @@ public class TurmaDAO {
                         "join tb_curso c on t.curso_id = c.id\n" +
                         "join tb_nivel n on t.nivel_id = n.id\n" +
                         "join tb_professor p on t.professor_id = p.id\n" +
-                        "where nome_nivel ilike ? order by id";
+                        "where n.nome ilike ? order by id";
             cmd = con.prepareStatement(sql);
             cmd.setString(1, "%" + nivel + "%");
             
@@ -220,9 +220,9 @@ public class TurmaDAO {
                 TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getString("curso_id"),
-                        rs.getString("nivel_id"),
-                        rs.getString("professor_id"),
+                        rs.getString("nome_curso"),
+                        rs.getString("nome_nivel"),
+                        rs.getString("nome_professor"),
                         rs.getString("horario")
                 );
                 lista.add(t);
@@ -243,7 +243,7 @@ public class TurmaDAO {
                         "join tb_curso c on t.curso_id = c.id\n" +
                         "join tb_nivel n on t.nivel_id = n.id\n" +
                         "join tb_professor p on t.professor_id = p.id\n" +
-                        "where nome_professor ilike ? order by id";
+                        "where p.nome ilike ? order by id";
             cmd = con.prepareStatement(sql);
             cmd.setString(1, "%" + professor + "%");
             
@@ -253,9 +253,9 @@ public class TurmaDAO {
                 TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getString("curso_id"),
-                        rs.getString("nivel_id"),
-                        rs.getString("professor_id"),
+                        rs.getString("nome_curso"),
+                        rs.getString("nome_nivel"),
+                        rs.getString("nome_professor"),
                         rs.getString("horario")
                 );
                 lista.add(t);
@@ -286,9 +286,9 @@ public class TurmaDAO {
                 TurmaDetalhada t = new TurmaDetalhada(
                         rs.getInt("id"),
                         rs.getString("nome"),
-                        rs.getString("curso_id"),
-                        rs.getString("nivel_id"),
-                        rs.getString("professor_id"),
+                        rs.getString("nome_curso"),
+                        rs.getString("nome_nivel"),
+                        rs.getString("nome_professor"),
                         rs.getString("horario")
                 );
                 lista.add(t);
