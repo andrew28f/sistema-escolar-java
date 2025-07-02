@@ -4,6 +4,7 @@ import controller.CursoDAO;
 import controller.NivelDAO;
 import controller.ProfessorDAO;
 import controller.TurmaDAO;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import model.Curso;
@@ -19,10 +20,10 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         preencherCombo();
-        
         cbxCurso.setSelectedIndex(0);
         cbxNivel.setSelectedIndex(0);
-        cbxProfessor.setSelectedIndex(0);        
+        cbxProfessor.setSelectedIndex(0);
+        cbxHorario.setSelectedIndex(0);
     }
     
     private void preencherCombo() {
@@ -41,6 +42,11 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
         DefaultComboBoxModel mProfessor = new DefaultComboBoxModel();
         mProfessor.addAll(new ProfessorDAO().listar());
         cbxProfessor.setModel(mProfessor);
+        
+        // Preenche COmboBox de Horários
+        DefaultComboBoxModel mHorario = new DefaultComboBoxModel();
+        mHorario.addAll(new TurmaDAO().listarHorarios());
+        cbxHorario.setModel(mHorario);
         
     }
 
@@ -86,13 +92,11 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
         lblCurso.setText("Curso");
 
         cbxCurso.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cbxCurso.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblNivel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblNivel.setText("Nível");
 
         cbxNivel.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cbxNivel.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbxNivel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxNivelActionPerformed(evt);
@@ -103,13 +107,11 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
         lblProfessor.setText("Professor");
 
         cbxProfessor.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cbxProfessor.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         lblHorario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         lblHorario.setText("Horário");
 
         cbxHorario.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        cbxHorario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "08:00 - 08:50", "08:50 - 09:40", "09:40 - 10:30", "10:30 - 11:45" }));
 
         btnSalvar.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btnSalvar.setText("Salvar");
