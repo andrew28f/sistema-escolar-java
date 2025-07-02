@@ -30,7 +30,7 @@ public class TurmaDAO {
             cmd.setInt(2, t.getCursoId());
             cmd.setInt(3, t.getNivelId());
             cmd.setInt(4, t.getProfessorId());
-            cmd.setString(4, t.getHorario());
+            cmd.setString(5, t.getHorario());
             
             if (cmd.executeUpdate() > 0) {
                 ResultSet rs = cmd.getGeneratedKeys();
