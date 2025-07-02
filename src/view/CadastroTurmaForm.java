@@ -223,6 +223,7 @@ public class CadastroTurmaForm extends javax.swing.JFrame {
             int res = new TurmaDAO().inserir(t);
             if (res > 0) {
                 JOptionPane.showMessageDialog(null, "Operação realizada com sucesso!");
+                this.dispose();
             } else {
                 JOptionPane.showMessageDialog(null, "Não foi possível realizar a operação.");
             }
